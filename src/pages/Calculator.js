@@ -1,47 +1,10 @@
 import React, { useEffect } from 'react'
-import i18n from 'i18next';
+//import i18n from 'i18next';
 
 import { useTranslation, initReactI18next } from "react-i18next";
 import LanguageDropDown from '../components/LanguageDropDown';
+import i18n from '../i18n'
 
-
-//useTranslation()x1
-//object.method()
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .init({
-    // the translations
-    // (tip move them in a JSON file and import them,
-    // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
-    resources: {
-        en: {
-            translation: {
-              "calculator": "Calculator"
-            }
-        },
-        hi: {
-            translation: {
-              "calculator": "कैलकुलेटर"
-            }
-        },
-        fr: {
-            translation: {
-              "calculator": "Calculatrice"
-            }
-        },
-        nl: {
-            translation: {
-              "calculator": "Rekenmachine"
-            }
-        },
-    },
-    lng: "hi", // if you're using a language detector, do not define the lng option
-    fallbackLng: "en",
-
-    interpolation: {
-      escapeValue: false // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
-    }
-});
 
 
 
@@ -51,17 +14,20 @@ export default function Calculator() {
     const { t }  = useTranslation();
 
     useEffect(()=>{
-        
+        var cl =localStorage.getItem('curLng');
+        i18n.changeLanguage(cl)
     },[])
     //2.2 functions definaton
+    
 
 
     //2.3 Return state
 
     return (
         <>
-            <LanguageDropDown />
+           <LanguageDropDown />
             <h1>Calculator Design Using HTML Layout</h1>
+            
             <div className="container">
                 <div className="header">{t('calculator')}</div>
                 <input type="text" className="result" />
